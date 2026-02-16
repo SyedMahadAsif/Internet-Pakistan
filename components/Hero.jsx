@@ -1,327 +1,250 @@
-// "use client";
+"use client";
 
-// import React from "react";
-// import { ChevronRight, Play, Star, Activity, ArrowUpRight, Zap } from "lucide-react";
+import { Zap, MapPin, Calendar, ChevronRight, Star, Clock } from "lucide-react";
+import SearchBar from "./SearchBar";
+import { venues, categories } from "../data/venues"; 
+import { useRouter } from "next/navigation";
 
-// const VENUES = [
-//   { name: "Arena 01", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400", area: "LHR", price: "2.5k" },
-//   { name: "Padel Pro", img: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=400", area: "KHI", price: "4.0k" },
-//   { name: "The Cage", img: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=400", area: "ISL", price: "3.5k" },
-// ];
+import React, { useState, useEffect } from "react";
 
-// export default function Hero() {
-//   // Duplicating venues for seamless infinite loop
-//   const scrollItems = [...VENUES, ...VENUES, ...VENUES];
-
-//   return (
-//     <section className="relative w-full h-screen min-h-[600px] flex items-center overflow-hidden bg-[#0a0a0a] text-white">
-      
-//       {/* BACKGROUND DECOR */}
-//       <div className="absolute inset-0 pointer-events-none opacity-20">
-//         <div className="absolute inset-0" style={{ backgroundImage: `radial-gradient(#333 1px, transparent 1px)`, backgroundSize: '30px 30px' }} />
-//         <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-lime-500/10 blur-[100px] rounded-full" />
-//       </div>
-
-//       <div className="relative z-10 w-full max-w-6xl mx-auto   grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        
-//         {/* LEFT: BRANDING */}
-//         <div className="lg:col-span-5 space-y-4">
-//           <div className="inline-flex items-center gap-2 px-2 py-1 bg-white/5 border border-white/10 rounded">
-//             <span className="w-1.5 h-1.5 bg-lime-400 rounded-full animate-pulse" />
-//             <span className="text-[9px] font-bold uppercase tracking-widest text-lime-400">System Live</span>
-//           </div>
-
-//           <h1 className="text-5xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">
-//             Elite <span className="text-lime-400">Venues</span><br />
-//             On Demand
-//           </h1>
-
-//           <p className="max-w-xs text-sm text-white/50 leading-snug">
-//             Instant booking for Pakistan&apos;s premium sports arenas. High performance, zero friction.
-//           </p>
-
-//           <div className="flex items-center gap-3 pt-2">
-//             <button className="h-10 px-5 bg-lime-400 text-black font-black uppercase text-[10px] tracking-widest flex items-center gap-2 hover:bg-white transition-all">
-//               Reserve <ArrowUpRight size={14} />
-//             </button>
-//             <button className="h-10 w-10 flex items-center justify-center border border-white/10 hover:bg-white/5">
-//               <Play size={14} fill="white" />
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* RIGHT: CONTENT HUB */}
-//         <div className="lg:col-span-7 space-y-4">
-          
-//           {/* STATS ROW */}
-//           <div className="grid grid-cols-2 gap-3">
-//             <div className="bg-[#111] border border-white/5 p-3 rounded flex justify-between items-center">
-//               <div>
-//                 <p className="text-[8px] font-bold text-white/30 uppercase tracking-[0.2em]">Active Players</p>
-//                 <p className="text-2xl font-black italic">12.8K</p>
-//               </div>
-//               <Activity size={16} className="text-lime-400 opacity-50" />
-//             </div>
-//             <div className="bg-[#111] border border-white/5 p-3 rounded flex justify-between items-center">
-//               <div>
-//                 <p className="text-[8px] font-bold text-white/30 uppercase tracking-[0.2em]">Efficiency</p>
-//                 <p className="text-2xl font-black italic">98%</p>
-//               </div>
-//               <Zap size={16} className="text-lime-400 opacity-50" />
-//             </div>
-//           </div>
-
-//           {/* AUTO-CAROUSEL */}
-//           <div className="relative w-full overflow-hidden">
-//              {/* Fade Edges Mask */}
-//             <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10" />
-//             <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10" />
-
-//             <div className="flex gap-4 animate-carousel py-2">
-//               {scrollItems.map((v, i) => (
-//                 <div key={i} className="flex-shrink-0 w-48 group">
-//                   <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-white/10">
-//                     <img 
-//                       src={v.img} 
-//                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-//                       alt="" 
-//                     />
-//                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-                    
-//                     <div className="absolute bottom-2 left-2 right-2">
-//                       <p className="text-[10px] font-black uppercase italic leading-none">{v.name}</p>
-//                       <div className="flex justify-between items-center mt-1">
-//                         <span className="text-[9px] font-bold text-white/60 uppercase">{v.area}</span>
-//                         <div className="flex items-center gap-0.5">
-//                           <Star size={8} fill="#a3e635" className="text-lime-400 border-none" />
-//                           <span className="text-[8px] font-bold">4.9</span>
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-
-//           {/* PARTNER STRIP */}
-//           <div className="bg-white/5 border-y border-white/5 py-2 overflow-hidden flex items-center gap-10">
-//             <div className="flex gap-10 animate-marquee whitespace-nowrap">
-//               {['ADIDAS PERFORMANCE', 'FOOTBALL PAKISTAN', 'REDBULL STUDIOS', 'FLY EMIRATES', 'ADIDAS PERFORMANCE'].map((t, idx) => (
-//                 <span key={idx} className="text-[8px] font-black text-white/20 tracking-[0.3em]">{t}</span>
-//               ))}
-//             </div>
-//           </div>
-
-//         </div>
-//       </div>
-
-//       <style jsx global>{`
-//         @keyframes carousel {
-//           0% { transform: translateX(0); }
-//           100% { transform: translateX(calc(-192px * 3 - 1rem * 3)); }
-//         }
-//         @keyframes marquee {
-//           0% { transform: translateX(0); }
-//           100% { transform: translateX(-50%); }
-//         }
-//         .animate-carousel {
-//           animation: carousel 20s linear infinite;
-//         }
-//         .animate-carousel:hover {
-//           animation-play-state: paused;
-//         }
-//         .animate-marquee {
-//           animation: marquee 30s linear infinite;
-//         }
-//       `}</style>
-//     </section>
-//   );
-// }
-
-   "use client";
-
-import React from "react";
-import { ArrowRight, Star, Activity, Zap, Globe, Trophy, MapPin, Plus } from "lucide-react";
-
-const VENUES = [
-  { name: "The Arena 01", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600", tag: "Football" },
-  { name: "Padel Pro", img: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=600", tag: "Padel" },
-  { name: "Courtside", img: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=600", tag: "Tennis" },
+// Inside your SportsLanding component
+const backgroundImages = [
+  "/images/background.jpg",
+  "/images/background2.png",
+  "/images/background3.jpg",
+   "/images/background4.jpg",
 ];
 
-export default function Hero() {
-  const scrollItems = [...VENUES, ...VENUES, ...VENUES];
 
-  const scrollToGrid = () => {
-    document.getElementById('venue-grid')?.scrollIntoView({ behavior: 'smooth' });
-  };
+
+
+export default function SportsLanding() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const router = useRouter();
+
+  const filteredVenues = (venues || []).filter((venue) => {
+    const matchesQuery =
+      venue.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      venue.sport.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      venue.area.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory
+      ? venue.sport === selectedCategory
+      : true;
+    return matchesQuery && matchesCategory;
+  });
+
+  const [bgIndex, setBgIndex] = useState(0);
+
+
+  // Change background every 5 seconds
+useEffect(() => {
+  const interval = setInterval(() => {
+    setBgIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+  }, 5000); // 5000ms = 5 seconds
+
+  return () => clearInterval(interval); // cleanup on unmount
+}, []);
 
   return (
-    <section className="relative w-full min-h-screen bg-[#f8f9fa] text-slate-900 font-sans selection:bg-lime-300 overflow-hidden">
+    <div className="min-h-screen bg-[#080415] text-white font-sans selection:bg-[#d9ff00] selection:text-black overflow-x-hidden">
       
-      {/* BACKGROUND LAYER */}
-      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-        <svg className="absolute inset-0 w-full h-full text-slate-300" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="netPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
-              <rect width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#netPattern)" />
-        </svg>
-        <div className="absolute top-[-10%] right-[-10%] w-[300px] md:w-[50%] h-[300px] md:h-[50%] bg-lime-400/10 blur-[80px] md:blur-[120px] rounded-full" />
-      </div>
+   
+      {/* ===== HERO SECTION ===== */}
+      {/* ===== HERO SECTION ===== */}
 
-      <div className="relative z-10 pt-24 md:pt-32 pb-20 px-6 lg:px-12 max-w-[1600px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          
-          {/* 01. THE MAIN HOOK */}
-          <div className="lg:col-span-7 space-y-8 md:space-y-10">
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md w-fit px-4 py-2 rounded-full border border-white shadow-sm">
-                <Globe size={14} className="text-lime-600 animate-pulse" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600">Karachi&apos;s #1 Sports Network</span>
-              </div>
-              <h1 className="text-5xl md:text-8xl lg:text-[110px] font-black tracking-[-0.05em] leading-[0.9] md:leading-[0.85] text-slate-950 uppercase italic">
-                Your Game, <br />
-                <span className="text-lime-500">Our Courts.</span>
-              </h1>
-            </div>
+      <section className="relative pt-24  px-6 overflow-hidden">
 
-            <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
-              <p className="max-w-[350px] text-base md:text-lg text-slate-600 font-medium leading-tight">
-                Instantly book premium football, padel, and cricket venues across the city. No more endless calls.
-              </p>
-              <button 
-                onClick={scrollToGrid}
-                className="group flex items-center gap-6 bg-slate-950 text-white pl-8 pr-3 py-3 rounded-full transition-all hover:bg-lime-500 hover:text-black hover:scale-105 active:scale-95 shadow-xl shadow-lime-900/10 w-full md:w-auto justify-between md:justify-start"
-              >
-                <span className="text-sm font-bold uppercase tracking-widest">Explore Arenas</span>
-                <div className="h-10 w-10 rounded-full bg-lime-400 flex items-center justify-center text-black group-hover:bg-white transition-colors">
-                  <ArrowRight size={20} />
-                </div>
-              </button>
-            </div>
+   <div className="absolute inset-0 pointer-events-none overflow-hidden">
+  {backgroundImages.map((img, index) => (
+    <img
+      key={index}
+      src={img}
+      alt="Stadium Background"
+      className={`
+        w-full h-full object-cover absolute inset-0 transition-opacity duration-1000
+        ${index === bgIndex ? "opacity-100" : "opacity-0"}
+      `}
+    />
+  ))}
+  <div className="absolute inset-0 bg-gradient-to-b from-[#080415]/80 via-[#080415]/40 to-[#080415]" />
+</div>
+
+
+
+
+        <div className="max-w-4xl mx-auto text-center md:text-left relative z-10">
+
+          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1 rounded-full mb-8">
+
+            <Zap size={14} className="text-[#d9ff00] fill-[#d9ff00]" />
+
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+
+              Karachi's #1 Venue Booker
+
+            </span>
+
           </div>
 
-          {/* 02. STATS BENTO GRID */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-            <div className="bg-white p-6 md:p-8 rounded-[32px] md:rounded-[40px] flex flex-col justify-between border border-white shadow-xl shadow-slate-200/50 group hover:border-lime-400 transition-colors">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-lime-50 rounded-2xl flex items-center justify-center text-lime-600 mb-4 group-hover:bg-lime-500 group-hover:text-white transition-all">
-                <MapPin size={24} />
-              </div>
-              <div className="space-y-1">
-                <p className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 italic leading-none">85+</p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Venues Listed</p>
-              </div>
-            </div>
 
-            <div className="bg-lime-400 p-6 md:p-8 rounded-[32px] md:rounded-[40px] flex flex-col justify-between shadow-xl shadow-lime-900/10 group">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-black/10 rounded-2xl flex items-center justify-center text-black mb-4">
-                <Trophy size={24} />
-              </div>
-              <div className="space-y-1 text-black">
-                <p className="text-4xl md:text-5xl font-black tracking-tighter italic leading-none">12K+</p>
-                <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Total Bookings</p>
-              </div>
-            </div>
 
-            <div className="bg-white p-5 md:p-6 rounded-[24px] md:rounded-[32px] border border-white shadow-sm flex items-center gap-4 col-span-2">
-               <div className="flex -space-x-3">
-                 {[1,2,3].map(i => (
-                   <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm">
-                     <img src={`https://i.pravatar.cc/100?img=${i+30}`} alt="user" />
-                   </div>
-                 ))}
-               </div>
-               <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse flex-shrink-0" />
-               <p className="text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-widest">2.4k Players playing now</p>
-            </div>
-          </div>
+         <h1 className="text-4xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-6 leading-[0.85]">
+
+  <span className="block md:inline">INSTANTLY</span>{" "}
+
+  <span className="text-[#d9ff00] block md:inline">BOOK SPORTS VENUES</span>{" "}
+
+  <span className="block md:inline">IN KARACHI</span>
+
+</h1>
+
+
+
+
+
+          <p className="text-slate-400 text-lg md:text-xl max-w-xl mb-6 leading-relaxed font-medium">
+
+            Discover and play at the best sports arenas in Karachi. Real-time availability, zero phone calls.
+
+          </p>
+
+
+
+          {/* Search Bar */}
+
+          <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
         </div>
 
-        {/* 03. THE COLLECTIONS CAROUSEL */}
-        <div id="venue-grid" className="mt-24 md:mt-32 relative scroll-mt-20">
-          <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12 px-2">
-            <h2 className="text-2xl md:text-4xl font-[1000] italic uppercase tracking-tighter text-slate-950">Premium Hubs</h2>
-            <div className="h-[2px] flex-1 bg-slate-200" />
-            <button className="text-[10px] font-black uppercase tracking-widest border-b-2 border-lime-500 pb-1 shrink-0">See All</button>
-          </div>
+      </section>
 
-          <div className="relative w-full overflow-hidden rounded-[32px] md:rounded-[40px] bg-white border border-slate-100 p-4 md:p-6 shadow-2xl shadow-slate-200/40">
-             
-             {/* ADAPTIVE WHITE SIDES GRADIENT MASKS */}
-             <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none" />
-             <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none" />
+      {/* ===== CATEGORIES SECTION ===== */}
+      <section className="px-6 py-12 mx-auto max-w-7xl relative z-10">
+        <div className="flex flex-col items-center mb-12">
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#d9ff00] to-transparent mb-4" />
+          <h2 className="text-3xl font-black uppercase tracking-tighter italic text-white/40">
+            CHOOSE YOUR <span className="text-white">BATTLEGROUND</span>
+          </h2>
+        </div>
 
-             {/* SCROLLING TRACK */}
-             <div className="flex gap-4 md:gap-8 animate-carousel py-4 relative z-10">
-                {scrollItems.map((v, i) => (
-                  <div key={i} className="flex-shrink-0 w-[280px] md:w-[420px] group cursor-pointer">
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-[20px] md:rounded-[24px] bg-slate-50 transition-all duration-700 md:group-hover:-translate-y-3">
-                      <img 
-                        src={v.img} 
-                        className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 md:group-hover:scale-110" 
-                        alt={v.name} 
-                      />
-                      
-                      {/* Gradient: Subtle on Desktop, Stronger on Mobile for readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-100 transition-opacity" />
-                      
-                      {/* Badge Top Left */}
-                      <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
-                        <span className="bg-lime-500 text-black px-3 py-1 md:px-4 md:py-1.5 rounded-lg text-[9px] md:text-[10px] font-[1000] uppercase tracking-widest shadow-xl">
-                          {v.tag}
-                        </span>
-                      </div>
+        <div className="flex items-center justify-center gap-4 overflow-x-auto pb-8 no-scrollbar mask-fade-edges">
+          {/* All Sports Button */}
+          <button
+            onClick={() => setSelectedCategory("")}
+            className={`group relative flex-shrink-0 flex flex-col items-center justify-center w-28 h-36 rounded-[32px] border transition-all duration-500
+              ${selectedCategory === "" 
+                ? "bg-[#d9ff00] border-[#d9ff00] shadow-[0_20px_40px_rgba(217,255,0,0.15)] -translate-y-2" 
+                : "bg-white/5 border-white/5 hover:border-white/20 hover:bg-white/10"
+              }`}
+          >
+            <Zap size={24} className={selectedCategory === "" ? "text-black" : "text-white/40"} fill={selectedCategory === "" ? "black" : "none"} />
+            <span className={`mt-4 text-[10px] font-black uppercase tracking-widest ${selectedCategory === "" ? "text-black" : "text-white/40"}`}>
+              All
+            </span>
+          </button>
 
-                      {/* Content Overlay: Visible by default on mobile */}
-                      <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 flex justify-between items-end text-white">
-                        <div>
-                          <div className="flex items-center gap-2 text-lime-400 mb-1 md:mb-2">
-                             <Star size={10} fill="currentColor" />
-                             <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em]">Verified Hub</span>
-                          </div>
-                          <p className="text-xl md:text-3xl font-[1000] italic tracking-tighter uppercase leading-none">{v.name}</p>
-                        </div>
-                        <div className="w-8 h-8 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-black md:opacity-0 md:group-hover:opacity-100 md:group-hover:rotate-[360deg] transition-all duration-700">
-  {/* Use className for responsive sizing instead of multiple size props */}
-  <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-</div>
-                      </div>
+          {categories.map((cat) => {
+            const isActive = selectedCategory === cat.name;
+            return (
+              <button
+                key={cat.name}
+                onClick={() => setSelectedCategory(isActive ? "" : cat.name)}
+                className={`group relative flex-shrink-0 flex flex-col items-center p-2 w-32 rounded-[40px] border transition-all duration-500
+                  ${isActive 
+                    ? "bg-[#120c24] border-[#d9ff00] shadow-[0_20px_40px_rgba(217,255,0,0.1)] -translate-y-2" 
+                    : "bg-white/5 border-white/5 hover:border-white/20 hover:bg-white/10"
+                  }`}
+              >
+                <div className={`relative w-24 h-24 overflow-hidden rounded-[32px] border-2 transition-all duration-500
+                  ${isActive ? "border-[#d9ff00]" : "border-white/10 grayscale opacity-40 group-hover:opacity-100 group-hover:grayscale-0"}`}>
+                  <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                <span className={`py-4 text-[10px] font-black uppercase tracking-widest transition-colors
+                  ${isActive ? "text-[#d9ff00]" : "text-white/40 group-hover:text-white"}`}>
+                  {cat.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ===== VENUES SECTION ===== */}
+      <section className="px-6 pb-32 mx-auto relative z-10 max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredVenues.length > 0 ? (
+            filteredVenues.map((venue) => (
+              <div
+                key={venue.id}
+                className="group relative bg-white/[0.02] backdrop-blur-md rounded-[48px] overflow-hidden border border-white/5 hover:border-[#d9ff00]/50 transition-all duration-700 hover:-translate-y-3 shadow-2xl flex flex-col"
+              >
+                {/* Tactical Glow */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#d9ff00]/10 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <div className="relative aspect-[4/3] m-4 overflow-hidden rounded-[36px]">
+                  <img src={venue.image} className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" alt={venue.name} />
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-2xl flex items-center gap-2 border border-white/10">
+                    <Star size={10} fill="#d9ff00" className="text-[#d9ff00]" />
+                    <span className="text-[11px] font-black">{venue.rating}</span>
+                  </div>
+                </div>
+
+                <div className="p-8 pt-2 flex flex-col flex-1">
+                  <h3 className="text-3xl font-black italic uppercase tracking-tighter text-white leading-none mb-4 group-hover:text-[#d9ff00] transition-colors">
+                    {venue.name}
+                  </h3>
+                  
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="flex items-center gap-2 text-white/30 text-[10px] font-black uppercase tracking-widest">
+                      <MapPin size={12} className="text-[#d9ff00]" />
+                      {venue.area}
+                    </div>
+                    <div className="flex items-center gap-2 text-white/30 text-[10px] font-black uppercase tracking-widest">
+                      <Clock size={12} className="text-[#d9ff00]" />
+                      {venue.openTime}
                     </div>
                   </div>
-                ))}
-             </div>
-          </div>
+
+                  <div className="mt-auto flex items-center justify-between bg-white/5 p-4 rounded-[24px] border border-white/5">
+                    <div>
+                      <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mb-1">Per Hour</p>
+                      <span className="text-2xl font-black text-[#d9ff00] italic">PKR {venue.price}</span>
+                    </div>
+                    <button
+                      onClick={() => router.push(`/venue/${venue.id}`)}
+                      className="h-12 w-12 bg-[#d9ff00] hover:bg-white text-black rounded-2xl transition-all active:scale-90 flex items-center justify-center shadow-lg shadow-[#d9ff00]/20"
+                    >
+                      <ChevronRight size={24} strokeWidth={3} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full py-32 text-center bg-white/[0.02] rounded-[48px] border border-dashed border-white/10">
+              <p className="text-white/20 text-2xl font-black italic uppercase tracking-[0.2em]">
+                Scanning Karachi... 0 Venues Found
+              </p>
+            </div>
+          )}
         </div>
-      </div>
+      </section>
 
       <style jsx global>{`
-        @keyframes carousel {
-          0% { transform: translateX(0); }
-          /* Mobile width: 280px + 16px (gap-4) */
-          100% { transform: translateX(calc(-280px * 3 - 1rem * 3)); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .mask-fade-edges {
+          mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
         }
-        @media (min-width: 768px) {
-          @keyframes carousel {
-            0% { transform: translateX(0); }
-            /* Desktop width: 420px + 32px (gap-8) */
-            100% { transform: translateX(calc(-420px * 3 - 2rem * 3)); }
-          }
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .animate-carousel {
-          animation: carousel 25s linear infinite;
-        }
-        .animate-carousel:hover {
-          animation-play-state: paused;
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out forwards;
         }
       `}</style>
-    </section>
+    </div>
   );
 }
-
-
-
-    

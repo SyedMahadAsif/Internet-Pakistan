@@ -24,19 +24,19 @@ export default function HomePage() {
 
   return (
     // <div className="min-h-screen  bg-[#0A0A0A] text-white overflow-x-hidden">
-          <div className="min-h-screen bg-[#f8f9fa]  text-white overflow-x-hidden">
+          <div className="min-h-screen bg-[#080415] text-white overflow-x-hidden">
 
       <Header />
       <Hero/>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {/* <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <CategoryBar
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
-      />
+      /> */}
 
-      <main className="max-w-[1600px] mx-auto px-4 lg:px-8 py-6">
+      {/* <main className="max-w-[1600px] mx-auto px-4 lg:px-8 py-6">
         <VenueGrid venues={filteredVenues} selectedCategory={selectedCategory} />
-      </main>
+      </main> */}
     </div>
   );
 }

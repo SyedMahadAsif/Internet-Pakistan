@@ -108,7 +108,7 @@ import { LayoutGrid, Filter, SearchX } from "lucide-react";
 
 export default function VenueGrid({ venues, selectedCategory }) {
   return (
-    <div className="w-full space-y-8 py-8 bg-[#FCFCFC]">
+    <div className="w-full space-y-8 py-8 bg-[#080415] bg-gradient-to-b from-[#080415]/80 via-[#080415]/40 to-[#080415]">
       {/* ===== TECHNICAL HEADER ===== */}
       <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6 px-6 lg:px-0">
         <div className="space-y-1">

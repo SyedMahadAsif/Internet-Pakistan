@@ -1,179 +1,102 @@
-// "use client";
-
-// import { Search, MapPin, Calendar, Target, SlidersHorizontal, ChevronDown } from "lucide-react";
-
-// export default function SearchBar({ searchQuery, setSearchQuery }) {
-//   return (
-//     <div className="bg-black border-y border-white/5 relative overflow-hidden">
-//       {/* Subtle Background Glow */}
-//       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-24 bg-lime-400/10 blur-[100px] pointer-events-none" />
-      
-//       <div className="max-w-[1440px] mx-auto px-6 py-8 md:py-12">
-//         <div className="relative group">
-//           {/* Labeling */}
-//           <div className="flex items-center justify-between mb-4 px-2">
-//             <div className="flex items-center gap-2">
-//               <span className="h-1 w-8 bg-lime-400 rounded-full" />
-//               <h2 className="text-[10px] uppercase font-black tracking-[0.3em] text-white/40">
-//                 Arena Discovery Engine
-//               </h2>
-//             </div>
-//             <div className="hidden md:flex items-center gap-4 text-[10px] font-black uppercase text-lime-400/60 tracking-widest">
-//               <span>82 Venues Active</span>
-//               <span className="h-1 w-1 rounded-full bg-white/20" />
-//               <span>Karachi, PK</span>
-//             </div>
-//           </div>
-
-//           {/* THE SEARCH CHASSIS */}
-//           <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl md:rounded-full p-2 flex flex-col md:flex-row items-stretch md:items-center gap-2 shadow-2xl transition-all duration-500 hover:border-white/20">
-            
-//             {/* Input Section */}
-//             <div className="flex-1 flex items-center gap-4 px-5 py-3 md:py-0">
-//               <Search size={20} className="text-lime-400" />
-//               <input
-//                 className="bg-transparent text-base w-full focus:outline-none placeholder:text-white/20 font-medium italic"
-//                 placeholder="Search by sport, venue name, or area..."
-//                 value={searchQuery}
-//                 onChange={(e) => setSearchQuery(e.target.value)}
-//               />
-//             </div>
-
-//             {/* Divider (Desktop Only) */}
-//             <div className="hidden md:block h-10 w-px bg-white/5" />
-
-//             {/* Location Selector */}
-//             <button className="flex items-center justify-between md:justify-start gap-3 px-5 py-3 md:py-0 hover:bg-white/5 transition-colors rounded-xl md:rounded-none group/item">
-//               <div className="flex items-center gap-3">
-//                 <MapPin size={18} className="text-white/40 group-hover/item:text-lime-400 transition-colors" />
-//                 <div className="text-left">
-//                   <p className="text-[9px] uppercase font-black text-white/30 leading-none mb-1">Location</p>
-//                   <p className="text-sm font-bold text-white truncate">Karachi, PK</p>
-//                 </div>
-//               </div>
-//               <ChevronDown size={14} className="text-white/20" />
-//             </button>
-
-//             {/* Divider (Desktop Only) */}
-//             <div className="hidden md:block h-10 w-px bg-white/5" />
-
-//             {/* Date Selector */}
-//             <button className="flex items-center justify-between md:justify-start gap-3 px-5 py-3 md:py-0 hover:bg-white/5 transition-colors rounded-xl md:rounded-none group/item">
-//               <div className="flex items-center gap-3">
-//                 <Calendar size={18} className="text-white/40 group-hover/item:text-lime-400 transition-colors" />
-//                 <div className="text-left">
-//                   <p className="text-[9px] uppercase font-black text-white/30 leading-none mb-1">Timing</p>
-//                   <p className="text-sm font-bold text-white whitespace-nowrap">Today, Feb 08</p>
-//                 </div>
-//               </div>
-//               <ChevronDown size={14} className="text-white/20" />
-//             </button>
-
-//             {/* Search Button / Filter Icon */}
-//             <div className="flex items-center gap-2 p-1">
-//               <button className="hidden sm:flex items-center justify-center bg-white/5 hover:bg-white/10 h-12 w-12 rounded-xl md:rounded-full border border-white/5 transition-all">
-//                 <SlidersHorizontal size={18} className="text-white" />
-//               </button>
-//               <button className="flex-1 md:flex-none px-8 h-12 bg-lime-400 text-black font-black uppercase italic text-sm tracking-tighter rounded-xl md:rounded-full hover:bg-white transition-all transform active:scale-95 shadow-[0_0_20px_rgba(163,230,53,0.3)]">
-//                 Find Slots
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-      
-//       {/* Decorative Target Icon (Updated Position) */}
-//       <Target size={120} className="absolute -bottom-10 -right-10 text-white/[0.02] pointer-events-none" />
-//     </div>
-//   );
-// }
-
 "use client";
 
-import { Search, MapPin, Calendar, Target, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { Search, MapPin, Calendar, Target, SlidersHorizontal, ChevronRight, ChevronDown } from "lucide-react";
 
 export default function SearchBar({ searchQuery, setSearchQuery }) {
   return (
-    <div className="bg-[#FCFCFC] border-y border-slate-200 relative overflow-hidden">
-      {/* Subtle Background Glow - Adjusted for Light Mode */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-24 bg-lime-400/20 blur-[100px] pointer-events-none" />
-      
-      <div className="max-w-[1440px] mx-auto px-6 py-8 md:py-12">
-        <div className="relative group">
-          {/* Labeling */}
-          <div className="flex items-center justify-between mb-4 px-2">
-            <div className="flex items-center gap-2">
-              <span className="h-1 w-8 bg-lime-500 rounded-full" />
-              <h2 className="text-[10px] uppercase font-black tracking-[0.3em] text-slate-400">
+    <div className="relative overflow-hidden py-12 px-6">
+      {/* Background Decorative Element */}
+      <Target size={200} className="absolute -top-20 -right-20 text-white/[0.02] pointer-events-none" />
+
+      <div className="max-w-[1440px] mx-auto">
+        <div className="relative group max-w-5xl mx-auto">
+          
+          {/* TOP METADATA ROW */}
+          <div className="flex items-center justify-between mb-6 px-4">
+            <div className="flex items-center gap-3">
+              <div className="h-[2px] w-10 bg-[#d9ff00]" />
+              <h2 className="text-[10px] uppercase font-black tracking-[0.4em] text-white/40">
                 Arena Discovery Engine
               </h2>
             </div>
-            <div className="hidden md:flex items-center gap-4 text-[10px] font-black uppercase text-lime-600 tracking-widest">
-              <span>82 Venues Active</span>
-              <span className="h-1 w-1 rounded-full bg-slate-300" />
-              <span>Karachi, PK</span>
+            <div className="hidden md:flex items-center gap-4 text-[10px] font-black uppercase text-[#d9ff00]/60 tracking-widest">
+              <span className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-[#d9ff00] animate-pulse" />
+                82 Venues Active
+              </span>
             </div>
           </div>
 
-          {/* THE SEARCH CHASSIS */}
-          <div className="bg-white border border-slate-200 rounded-2xl md:rounded-full p-2 flex flex-col md:flex-row items-stretch md:items-center gap-2 shadow-[0_10px_40px_rgba(0,0,0,0.04)] transition-all duration-500 hover:border-slate-300">
+          {/* THE SEARCH CHASSIS (Based on your reference) */}
+          <div className="bg-[#1a162e]/80 backdrop-blur-2xl p-2 rounded-[32px] md:rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-stretch md:items-center gap-2 transition-all duration-500 hover:border-white/20">
             
             {/* Input Section */}
-            <div className="flex-1 flex items-center gap-4 px-5 py-3 md:py-0">
-              <Search size={20} className="text-lime-500" />
+            <div className="flex-[1.5] flex items-center gap-4 px-6 py-4 md:py-0">
+              <Search size={22} className="text-slate-500" />
               <input
-                className="bg-transparent text-slate-800 text-base w-full focus:outline-none placeholder:text-slate-300 font-medium italic"
-                placeholder="Search by sport, venue name, or area..."
+                className="bg-transparent text-white text-base w-full focus:outline-none placeholder:text-slate-600 font-bold italic"
+                placeholder="Find football, padel, cricket..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
 
-            {/* Divider (Desktop Only) */}
-            <div className="hidden md:block h-10 w-px bg-slate-100" />
+            {/* Vertical Divider */}
+            <div className="hidden md:block h-10 w-px bg-white/10" />
 
             {/* Location Selector */}
-            <button className="flex items-center justify-between md:justify-start gap-3 px-5 py-3 md:py-0 hover:bg-slate-50 transition-colors rounded-xl md:rounded-none group/item text-slate-600">
+            <button className="flex items-center justify-between gap-4 px-6 py-4 md:py-0 group/item">
               <div className="flex items-center gap-3">
-                <MapPin size={18} className="text-slate-300 group-hover/item:text-lime-500 transition-colors" />
+                <MapPin size={18} className="text-slate-500 group-hover/item:text-[#d9ff00] transition-colors" />
                 <div className="text-left">
-                  <p className="text-[9px] uppercase font-black text-slate-400 leading-none mb-1">Location</p>
-                  <p className="text-sm font-bold text-slate-800 truncate">Karachi, PK</p>
+                  <p className="text-[8px] uppercase font-black text-slate-500 leading-none mb-1">Area</p>
+                  <p className="text-sm font-black text-white italic tracking-tight">Karachi, PK</p>
                 </div>
               </div>
-              <ChevronDown size={14} className="text-slate-300" />
+              <ChevronDown size={14} className="text-slate-600" />
             </button>
 
-            {/* Divider (Desktop Only) */}
-            <div className="hidden md:block h-10 w-px bg-slate-100" />
+            {/* Vertical Divider */}
+            <div className="hidden md:block h-10 w-px bg-white/10" />
 
             {/* Date Selector */}
-            <button className="flex items-center justify-between md:justify-start gap-3 px-5 py-3 md:py-0 hover:bg-slate-50 transition-colors rounded-xl md:rounded-none group/item text-slate-600">
+            {/* <button className="flex items-center justify-between gap-4 px-6 py-4 md:py-0 group/item">
               <div className="flex items-center gap-3">
-                <Calendar size={18} className="text-slate-300 group-hover/item:text-lime-500 transition-colors" />
+                <Calendar size={18} className="text-slate-500 group-hover/item:text-[#d9ff00] transition-colors" />
                 <div className="text-left">
-                  <p className="text-[9px] uppercase font-black text-slate-400 leading-none mb-1">Timing</p>
-                  <p className="text-sm font-bold text-slate-800 whitespace-nowrap">Today, Feb 08</p>
+                  <p className="text-[8px] uppercase font-black text-slate-500 leading-none mb-1">Schedule</p>
+                  <p className="text-sm font-black text-white italic tracking-tight whitespace-nowrap">Today</p>
                 </div>
               </div>
-              <ChevronDown size={14} className="text-slate-300" />
-            </button>
+              <ChevronDown size={14} className="text-slate-600" />
+            </button> */}
 
-            {/* Search Button / Filter Icon */}
-            <div className="flex items-center gap-2 p-1">
-              <button className="hidden sm:flex items-center justify-center bg-slate-50 hover:bg-slate-100 h-12 w-12 rounded-xl md:rounded-full border border-slate-200 transition-all">
-                <SlidersHorizontal size={18} className="text-slate-600" />
-              </button>
-              <button className="flex-1 md:flex-none px-8 h-12 bg-lime-400 text-black font-black uppercase italic text-sm tracking-tighter rounded-xl md:rounded-full hover:bg-slate-900 hover:text-white transition-all transform active:scale-95 shadow-lg shadow-lime-400/20">
-                Find Slots
-              </button>
-            </div>
+            {/* Filter Toggle (Mobile/Tablet Only) */}
+            {/* <button className="md:hidden flex items-center justify-center gap-2 py-4 text-slate-400 font-bold text-xs uppercase tracking-widest border-t border-white/5">
+              <SlidersHorizontal size={14} /> Advanced Filters
+            </button> */}
+
+            {/* THE BIG ACTION BUTTON (Matches your reference) */}
+            <button className="bg-[#d9ff00] text-black font-black px-12 py-5 rounded-[26px] md:rounded-full flex items-center justify-center gap-3 hover:bg-[#c4e600] transition-all active:scale-95 shadow-xl shadow-[#d9ff00]/20 group/btn">
+              <span className="tracking-tighter italic">EXPLORE</span>
+              <ChevronRight size={20} strokeWidth={4} className="group-hover/btn:translate-x-1 transition-transform" />
+            </button>
           </div>
+
+          {/* Bottom Labels */}
+          <div className="mt-6 flex flex-wrap justify-center gap-6 opacity-30">
+            {['Fast Booking', 'No Hidden Fees', 'Top Rated Turfs'].map((text, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <div className="h-1 w-1 rounded-full bg-white" />
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white">
+                  {text}
+                </span>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
-      
-      {/* Decorative Target Icon (Updated for Light Mode visibility) */}
-      <Target size={120} className="absolute -bottom-10 -right-10 text-slate-900/[0.03] pointer-events-none" />
     </div>
   );
 }
