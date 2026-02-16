@@ -66,9 +66,8 @@ export default function VenueDetailsPage() {
   </div>
 
   {/* Secure Spot Button + Quick Info */}
-  <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center justify-between bg-[#1a162e]/90 backdrop-blur-2xl border border-white/10 p-6 rounded-[28px] shadow-2xl">
+  {/* <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center justify-between bg-[#1a162e]/90 backdrop-blur-2xl border border-white/10 p-6 rounded-[28px] shadow-2xl">
     
-    {/* Venue Info */}
     <div className="flex items-center gap-6 mb-4 md:mb-0">
       <div>
         <h1 className="text-3xl font-black italic uppercase tracking-tighter text-white leading-none">
@@ -85,11 +84,10 @@ export default function VenueDetailsPage() {
       </div>
     </div>
 
-    {/* Secure Spot Button */}
     <button className="bg-[#d9ff00] text-black px-8 py-4 rounded-2xl font-black uppercase text-xs flex items-center gap-2 hover:bg-white transition-all shadow-lg shadow-[#d9ff00]/10">
       <Zap size={16} fill="black" /> Secure Spot
     </button>
-  </div>
+  </div> */}
 </div>
 
 

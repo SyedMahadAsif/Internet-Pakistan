@@ -119,56 +119,76 @@ useEffect(() => {
 
       </section>
 
-      {/* ===== CATEGORIES SECTION ===== */}
-      <section className="px-6 py-12 mx-auto max-w-7xl relative z-10">
-        <div className="flex flex-col items-center mb-12">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#d9ff00] to-transparent mb-4" />
-          <h2 className="text-3xl font-black uppercase tracking-tighter italic text-white/40">
-            CHOOSE YOUR <span className="text-white">BATTLEGROUND</span>
-          </h2>
-        </div>
+     {/* ===== CATEGORIES SECTION ===== */}
+<section className="px-4  mx-auto max-w-7xl relative z-10 select-none">
+  {/* HEADER SECTION - More minimalist & balanced */}
+  <div className="flex flex-col items-center mb-10 text-center">
+    <div className="flex items-center gap-3 mb-2">
+      <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#d9ff00]" />
+      <span className="text-[#d9ff00] text-[10px] font-bold tracking-[0.3em] uppercase">Browse</span>
+      <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#d9ff00]" />
+    </div>
+    <h2 className="text-2xl md:text-4xl font-black italic tracking-tight text-white uppercase">
+      CHOOSE <span className="text-white/30">CATEGORY</span>
+    </h2>
+  </div>
 
-        <div className="flex items-center justify-center gap-4 overflow-x-auto pb-8 no-scrollbar mask-fade-edges">
-          {/* All Sports Button */}
-          <button
-            onClick={() => setSelectedCategory("")}
-            className={`group relative flex-shrink-0 flex flex-col items-center justify-center w-28 h-36 rounded-[32px] border transition-all duration-500
-              ${selectedCategory === "" 
-                ? "bg-[#d9ff00] border-[#d9ff00] shadow-[0_20px_40px_rgba(217,255,0,0.15)] -translate-y-2" 
-                : "bg-white/5 border-white/5 hover:border-white/20 hover:bg-white/10"
-              }`}
-          >
-            <Zap size={24} className={selectedCategory === "" ? "text-black" : "text-white/40"} fill={selectedCategory === "" ? "black" : "none"} />
-            <span className={`mt-4 text-[10px] font-black uppercase tracking-widest ${selectedCategory === "" ? "text-black" : "text-white/40"}`}>
-              All
-            </span>
-          </button>
+  {/* CATEGORY SCROLLER - Better mobile spacing & glass effect */}
+  <div className="flex items-center gap-4 overflow-x-auto pb-6 no-scrollbar -mx-4 px-4 snap-x snap-proximity">
+    
+    {/* "All" Toggle Pill */}
+    <button
+      onClick={() => setSelectedCategory("")}
+      className={`group relative flex-shrink-0 flex items-center justify-center px-8 h-12 rounded-full border transition-all duration-500 snap-center
+        ${selectedCategory === "" 
+          ? "bg-[#d9ff00] border-[#d9ff00] text-black shadow-[0_10px_25px_-5px_rgba(217,255,0,0.4)] scale-105" 
+          : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 backdrop-blur-md"
+        }`}
+    >
+      <Zap 
+        size={16} 
+        className={`mr-2 transition-transform duration-300 group-hover:scale-110`} 
+        fill={selectedCategory === "" ? "black" : "transparent"} 
+      />
+      <span className="text-xs font-black uppercase tracking-widest">All</span>
+    </button>
 
-          {categories.map((cat) => {
-            const isActive = selectedCategory === cat.name;
-            return (
-              <button
-                key={cat.name}
-                onClick={() => setSelectedCategory(isActive ? "" : cat.name)}
-                className={`group relative flex-shrink-0 flex flex-col items-center p-2 w-32 rounded-[40px] border transition-all duration-500
-                  ${isActive 
-                    ? "bg-[#120c24] border-[#d9ff00] shadow-[0_20px_40px_rgba(217,255,0,0.1)] -translate-y-2" 
-                    : "bg-white/5 border-white/5 hover:border-white/20 hover:bg-white/10"
-                  }`}
-              >
-                <div className={`relative w-24 h-24 overflow-hidden rounded-[32px] border-2 transition-all duration-500
-                  ${isActive ? "border-[#d9ff00]" : "border-white/10 grayscale opacity-40 group-hover:opacity-100 group-hover:grayscale-0"}`}>
-                  <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                </div>
-                <span className={`py-4 text-[10px] font-black uppercase tracking-widest transition-colors
-                  ${isActive ? "text-[#d9ff00]" : "text-white/40 group-hover:text-white"}`}>
-                  {cat.name}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
+    {/* Dynamic Category Pills */}
+    {categories.map((cat) => {
+      const isActive = selectedCategory === cat.name;
+      return (
+        <button
+          key={cat.name}
+          onClick={() => setSelectedCategory(isActive ? "" : cat.name)}
+          className={`group relative flex-shrink-0 flex items-center p-1.5 pr-6 h-12 rounded-full border transition-all duration-500 snap-center
+            ${isActive 
+              ? "bg-white/10 border-[#d9ff00] text-white shadow-[0_10px_20px_-10px_rgba(217,255,0,0.3)] scale-105" 
+              : "bg-white/5 border-white/10 text-white/40 hover:border-white/20 backdrop-blur-sm"
+            }`}
+        >
+          {/* Circular Mini Image - Improved contrast and scaling */}
+          <div className={`relative w-9 h-9 rounded-full overflow-hidden border-2 transition-all duration-500 
+            ${isActive ? "border-[#d9ff00] rotate-3" : "border-white/5 grayscale opacity-50 group-hover:opacity-100 group-hover:grayscale-0"}`}>
+            <img 
+              src={cat.image} 
+              alt={cat.name} 
+              className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" 
+            />
+          </div>
+          
+          <span className="ml-3 text-xs font-bold uppercase tracking-widest whitespace-nowrap">
+            {cat.name}
+          </span>
+
+          {/* Active indicator - Subtle glowing line instead of dot */}
+          {isActive && (
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-[#d9ff00] blur-[1px]" />
+          )}
+        </button>
+      );
+    })}
+  </div>
+</section>
 
       {/* ===== VENUES SECTION ===== */}
       <section className="px-6 pb-32 mx-auto relative z-10 max-w-7xl">

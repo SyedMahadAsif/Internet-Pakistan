@@ -12,7 +12,7 @@ export default function SearchBar({ searchQuery, setSearchQuery }) {
         <div className="relative group max-w-5xl mx-auto">
           
           {/* TOP METADATA ROW */}
-          <div className="flex items-center justify-between mb-6 px-4">
+          <div className="hidden md:block lg:block flex items-center justify-between mb-4 px-4">
             <div className="flex items-center gap-3">
               <div className="h-[2px] w-10 bg-[#d9ff00]" />
               <h2 className="text-[10px] uppercase font-black tracking-[0.4em] text-white/40">
@@ -20,10 +20,10 @@ export default function SearchBar({ searchQuery, setSearchQuery }) {
               </h2>
             </div>
             <div className="hidden md:flex items-center gap-4 text-[10px] font-black uppercase text-[#d9ff00]/60 tracking-widest">
-              <span className="flex items-center gap-2">
+              {/* <span className="flex items-center gap-2">
                 <span className="h-1 w-1 rounded-full bg-[#d9ff00] animate-pulse" />
-                82 Venues Active
-              </span>
+                Search Venues
+              </span> */}
             </div>
           </div>
 

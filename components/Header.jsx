@@ -43,7 +43,7 @@ export default function Header() {
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#d9ff00]"></span>
               </span>
               <span className="text-[7px] font-black uppercase tracking-[0.2em] text-white/40 leading-none">
-                Karachi HQ // Live Slots
+                Book Venues Instantly
               </span>
             </div>
           </div>

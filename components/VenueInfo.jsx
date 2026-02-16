@@ -1,127 +1,135 @@
 "use client";
 
-import { Star, Clock, MapPin, Phone, MessageCircle, Target, ShieldCheck, Zap, Activity, Info } from "lucide-react";
+import { useState, useMemo } from "react";
+// Replace with your router of choice (e.g., import { useRouter } from 'next/navigation')
+import { 
+  ChevronRight, Smartphone, User, Mail, 
+  Calendar, Clock, MapPin, Activity, ChevronDown 
+} from "lucide-react";
 
-export default function VenueInfo({ venue }) {
-  const handleWhatsAppClick = () => {
-    const message = encodeURIComponent(
-      `Hi, I'm interested in booking ${venue.name} in ${venue.area}.`
-    );
-    window.open(`https://wa.me/${venue.phone.replace(/\D/g, "")}?text=${message}`, "_blank");
+export default function VenueBookingPage({ venue }) {
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("");
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const [dateOpen, setDateOpen] = useState(false);
+  const [timeOpen, setTimeOpen] = useState(false);
+
+  const dates = useMemo(() => Array.from({ length: 10 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() + i);
+    return {
+      full: d.toDateString(),
+      display: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', weekday: 'short' })
+    };
+  }), []);
+
+  const timeSlots = ["08:00 AM", "10:00 AM", "12:00 PM", "02:00 PM", "04:00 PM", "06:00 PM", "08:00 PM", "10:00 PM"];
+
+  const handleFinalize = () => {
+    const params = new URLSearchParams({
+      name: formData.name,
+      venue: venue.name,
+      date: selectedDate?.display || "",
+      time: selectedTime
+    });
+    
+    window.location.href = `/confirmation?${params.toString()}`;
   };
 
   return (
-    <div className="bg-[#080415] border border-white/10 relative overflow-hidden rounded-[32px]">
-      
-      {/* 1. HEADER SECTION (Tactical ID) */}
-      <div className="p-8 pb-4">
-        <div className="flex justify-between items-start mb-6">
-          <div className="flex flex-col gap-2">
-            <div className="inline-flex items-center gap-2 bg-[#d9ff00] text-black px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] [clip-path:polygon(0_0,100%_0,90%_100%,0%_100%)]">
-              <Activity size={12} />
-              Operational Dossier
+    <div className="min-h-screen bg-[#05020a] text-white p-4 md:p-8 font-sans">
+      <div className="max-w-4xl mx-auto bg-[#0d061a] border border-white/10 rounded-[40px] overflow-hidden flex flex-col md:flex-row shadow-2xl">
+        
+        {/* LEFT SIDEBAR: COMPACT VENUE INFO */}
+        <div className="w-full md:w-5/12 p-6 bg-[#120a24] border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between">
+          <div>
+            <div className="inline-flex items-center gap-1.5 bg-[#d9ff00] text-black px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider mb-4">
+              <Activity size={10} /> Live Status
             </div>
-            <h1 className="text-5xl font-black uppercase italic tracking-tighter leading-none text-white mt-2">
+            <h1 className="text-2xl font-black uppercase italic tracking-tighter text-white mb-2 leading-none">
               {venue.name}
             </h1>
-          </div>
-          
-          <div className="bg-white/5 border border-white/10 p-4 rounded-2xl flex flex-col items-end">
-            <div className="flex items-center gap-1 text-[#d9ff00]">
-              <Star size={16} fill="currentColor" />
-              <span className="text-xl font-black">{venue.rating}</span>
-            </div>
-            <span className="text-[8px] text-white/40 uppercase font-black tracking-widest mt-1">Global Rating</span>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-4 text-white/40 font-bold text-[10px] uppercase tracking-[0.3em] mb-8">
-          <span className="flex items-center gap-2 border-r border-white/10 pr-4">
-            <MapPin size={12} className="text-[#d9ff00]" /> {venue.area}
-          </span>
-          <span className="flex items-center gap-2 border-r border-white/10 pr-4">
-            <Target size={12} className="text-[#d9ff00]" /> {venue.sport}
-          </span>
-          <span className="text-[#d9ff00]/60 italic">Status: Available</span>
-        </div>
-
-        <div className="relative p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
-          <Info size={16} className="absolute top-4 right-4 text-white/10" />
-          <p className="text-sm text-white/60 leading-relaxed font-medium italic border-l-2 border-[#d9ff00] pl-6">
-            {venue.description}
-          </p>
-        </div>
-      </div>
-
-      {/* 2. DATA GRID (Monochrome Shift) */}
-      <div className="px-8 py-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white/5 border border-white/5 p-5 rounded-2xl flex flex-col gap-1 hover:border-[#d9ff00]/30 transition-colors">
-            <div className="flex items-center gap-2 text-white/30">
-              <Clock size={14} />
-              <span className="text-[9px] font-black uppercase tracking-widest text-[#d9ff00]/60">Operational Window</span>
-            </div>
-            <p className="text-md font-black text-white">{venue.openTime}</p>
+            <p className="flex items-center gap-1.5 text-white/30 font-bold uppercase text-[9px] tracking-[0.2em]">
+              <MapPin size={10} className="text-[#d9ff00]" /> {venue.area}
+            </p>
           </div>
 
-          <div className="bg-white/5 border border-white/5 p-5 rounded-2xl flex flex-col gap-1 hover:border-[#d9ff00]/30 transition-colors">
-            <div className="flex items-center gap-2 text-white/30">
-              <Zap size={14} />
-              <span className="text-[9px] font-black uppercase tracking-widest text-[#d9ff00]/60">Booking Priority</span>
-            </div>
-            <p className="text-md font-black text-[#d9ff00]">INSTANT VERIFICATION</p>
+          <div className="mt-8 bg-white/5 border border-white/5 rounded-2xl p-4">
+            <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mb-1">Standard Rate</p>
+            <p className="text-xl font-black text-[#d9ff00] italic">PKR {venue.price}</p>
           </div>
         </div>
-      </div>
 
-      {/* 3. PRICE MONOLITH */}
-      <div className="px-8 py-6">
-        <div className="relative bg-[#d9ff00] p-8 flex items-center justify-between rounded-[24px] overflow-hidden group">
-            <div className="relative z-10">
-                <p className="text-[10px] font-black text-black/40 uppercase tracking-widest mb-1">Standard Hourly Rate</p>
-                <div className="flex items-baseline gap-1">
-                    <span className="text-xs font-bold text-black/60">PKR</span>
-                    <span className="text-5xl font-black text-black tracking-tighter italic leading-none">{venue.price}</span>
-                </div>
-            </div>
-            {/* Visual Flair */}
-            <div className="absolute right-0 top-0 h-full w-32 bg-black/5 [clip-path:polygon(20%_0,100%_0,100%_100%,0%_100%)]" />
-            <ShieldCheck size={48} className="relative z-10 text-black/20" />
-        </div>
-      </div>
+        {/* RIGHT SIDEBAR: BOOKING TERMINAL */}
+        <div className="w-full md:w-7/12 p-6 flex flex-col space-y-5 min-h-[500px]">
+          <h2 className="text-[9px] font-black text-[#d9ff00] uppercase tracking-[0.3em]">Phase 01 / Deployment</h2>
 
-      {/* 4. ACTION TERMINAL */}
-      <div className="p-8 pt-2 space-y-4">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            onClick={handleWhatsAppClick}
-            className="flex-[1.5] bg-white hover:bg-[#d9ff00] text-black px-6 py-5 text-xs font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 rounded-2xl shadow-xl active:scale-95"
-          >
-            <MessageCircle size={18} fill="currentColor" />
-            Connect via WhatsApp
-          </button>
-          <button className="flex-1 bg-white/5 hover:bg-white/10 text-white px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] border border-white/10 transition-all rounded-2xl active:scale-95">
-            View Policy
-          </button>
-        </div>
-
-        {/* 5. FOOTER DETAILS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-white/5">
-          <div className="flex items-center gap-4">
-            <div className="bg-white/5 p-3 rounded-xl text-[#d9ff00]">
-                <MapPin size={16} />
-            </div>
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-tight leading-tight">
-                {venue.address}
-            </span>
+          {/* DATE SELECTOR */}
+          <div className="relative">
+            <label className="text-[9px] font-black text-white/30 uppercase mb-2 block tracking-widest">Date Selection</label>
+            <button 
+              onClick={() => {setDateOpen(!dateOpen); setTimeOpen(false);}}
+              className="w-full bg-white/5 border border-white/10 text-white rounded-xl p-3 flex items-center justify-between text-xs font-bold"
+            >
+              {selectedDate ? selectedDate.display : "Choose Date"}
+              <ChevronDown size={14} className={`text-white/20 ${dateOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {dateOpen && (
+              <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1129] border border-white/10 rounded-xl z-50 max-h-40 overflow-y-auto shadow-2xl">
+                {dates.map((d, i) => (
+                  <div key={i} onClick={() => {setSelectedDate(d); setDateOpen(false);}} className="p-3 hover:bg-[#d9ff00] hover:text-black cursor-pointer font-bold border-b border-white/5 text-xs">{d.display}</div>
+                ))}
+              </div>
+            )}
           </div>
-          <div className="flex items-center gap-4">
-            <div className="bg-white/5 p-3 rounded-xl text-[#d9ff00]">
-                <Phone size={16} />
+
+          {/* TIME SELECTOR */}
+          <div className="relative">
+            <label className="text-[9px] font-black text-white/30 uppercase mb-2 block tracking-widest">Window Selection</label>
+            <button 
+              onClick={() => {setTimeOpen(!timeOpen); setDateOpen(false);}}
+              className="w-full bg-white/5 border border-white/10 text-white rounded-xl p-3 flex items-center justify-between text-xs font-bold"
+            >
+              {selectedTime || "Choose Slot"}
+              <ChevronDown size={14} className={`text-white/20 ${timeOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {timeOpen && (
+              <div className="absolute top-full left-0 w-full mt-1 bg-[#1a1129] border border-white/10 rounded-xl z-50 max-h-40 overflow-y-auto shadow-2xl">
+                {timeSlots.map((slot) => (
+                  <div key={slot} onClick={() => {setSelectedTime(slot); setTimeOpen(false);}} className="p-3 hover:bg-[#d9ff00] hover:text-black cursor-pointer font-bold border-b border-white/5 text-xs">{slot}</div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* USER INFO INPUTS */}
+          <div className="space-y-3 pt-2">
+            <div className="bg-white/5 border border-white/10 p-4 rounded-xl">
+              <label className="text-[8px] font-black text-white/30 uppercase block mb-1">Personnel Name</label>
+              <input 
+                className="bg-transparent w-full text-white text-sm font-bold outline-none placeholder:text-white/5" 
+                placeholder="Required" 
+                onChange={(e) => setFormData({...formData, name: e.target.value})} 
+              />
             </div>
-            <a href={`tel:${venue.phone}`} className="text-sm font-black text-white hover:text-[#d9ff00] transition tracking-tighter">
-              {venue.phone}
-            </a>
+            <div className="bg-white/5 border border-white/10 p-4 rounded-xl">
+              <label className="text-[8px] font-black text-white/30 uppercase block mb-1">WhatsApp Connection</label>
+              <input 
+                className="bg-transparent w-full text-white text-sm font-bold outline-none placeholder:text-white/5" 
+                placeholder="03XXXXXXXXX" 
+                onChange={(e) => setFormData({...formData, phone: e.target.value})} 
+              />
+            </div>
+          </div>
+
+          <div className="mt-auto pt-4">
+            <button
+              disabled={!selectedDate || !selectedTime || !formData.name || !formData.phone}
+              onClick={handleFinalize}
+              className="w-full bg-[#d9ff00] disabled:opacity-10 text-black py-4 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all flex items-center justify-center gap-2"
+            >
+              Finalize Booking <ChevronRight size={14} />
+            </button>
           </div>
         </div>
       </div>
