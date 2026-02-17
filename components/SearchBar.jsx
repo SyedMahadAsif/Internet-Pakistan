@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, MapPin, Target, ChevronRight, ChevronDown } from "lucide-react";
+import { Search, MapPin, Target, ChevronRight, ChevronDown, X } from "lucide-react";
 
 export default function SearchBar({ searchQuery, setSearchQuery, onExploreClick }) {
   return (
@@ -25,14 +25,24 @@ export default function SearchBar({ searchQuery, setSearchQuery, onExploreClick 
           <div className="bg-[#1a162e]/80 backdrop-blur-2xl p-1.5 md:p-2 rounded-[24px] md:rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-stretch md:items-center gap-1 md:gap-2 transition-all duration-500 hover:border-white/20">
             
             {/* Input Section */}
-            <div className="flex-[1.5] flex items-center gap-3 px-4 md:px-6 py-3 md:py-0">
+            <div className="flex-[1.5] flex items-center gap-3 px-4 md:px-6 py-3 md:py-0 relative">
               <Search size={18} className="text-slate-500 shrink-0" />
               <input
-                className="bg-transparent text-white text-sm md:text-base w-full focus:outline-none placeholder:text-slate-600 font-bold italic"
+                className="bg-transparent text-white text-sm md:text-base w-full focus:outline-none placeholder:text-slate-600 font-bold italic pr-8"
                 placeholder="Find football, cricket..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
+              
+              {/* CLEAR BUTTON (X) */}
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2 md:right-4 p-1 rounded-full hover:bg-white/10 text-slate-500 hover:text-[#d9ff00] transition-all"
+                >
+                  <X size={16} strokeWidth={3} />
+                </button>
+              )}
             </div>
 
             {/* Vertical Divider */}
@@ -50,13 +60,12 @@ export default function SearchBar({ searchQuery, setSearchQuery, onExploreClick 
               {/* <ChevronDown size={12} className="text-slate-600" /> */}
             </button>
 
-            {/* THE BIG ACTION BUTTON - FIXED JSX ERROR */}
+            {/* THE BIG ACTION BUTTON */}
             <button 
               onClick={onExploreClick} 
               className="bg-[#d9ff00] text-black font-black px-8 md:px-12 py-3.5 md:py-5 rounded-[18px] md:rounded-full flex items-center justify-center gap-2 md:gap-3 hover:bg-[#c4e600] transition-all active:scale-95 shadow-xl shadow-[#d9ff00]/20 group/btn"
             >
               <span className="tracking-tighter italic text-xs md:text-base">EXPLORE</span>
-              {/* Note: Sizing handled via classes or a single prop to avoid Namespace error */}
               <ChevronRight strokeWidth={4} className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-1 transition-transform" />
             </button>
           </div>
