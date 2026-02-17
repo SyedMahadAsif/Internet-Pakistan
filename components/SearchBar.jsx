@@ -2,7 +2,7 @@
 
 import { Search, MapPin, Calendar, Target, SlidersHorizontal, ChevronRight, ChevronDown } from "lucide-react";
 
-export default function SearchBar({ searchQuery, setSearchQuery }) {
+export default function SearchBar({ searchQuery, setSearchQuery, onExploreClick }) {
   return (
     <div className="relative overflow-hidden py-12 px-6">
       {/* Background Decorative Element */}
@@ -77,15 +77,16 @@ export default function SearchBar({ searchQuery, setSearchQuery }) {
             </button> */}
 
             {/* THE BIG ACTION BUTTON (Matches your reference) */}
-            <button className="bg-[#d9ff00] text-black font-black px-12 py-5 rounded-[26px] md:rounded-full flex items-center justify-center gap-3 hover:bg-[#c4e600] transition-all active:scale-95 shadow-xl shadow-[#d9ff00]/20 group/btn">
+            <button         onClick={onExploreClick} // ✅ scroll to venues
+ className="bg-[#d9ff00] text-black font-black px-12 py-5 rounded-[26px] md:rounded-full flex items-center justify-center gap-3 hover:bg-[#c4e600] transition-all active:scale-95 shadow-xl shadow-[#d9ff00]/20 group/btn">
               <span className="tracking-tighter italic">EXPLORE</span>
               <ChevronRight size={20} strokeWidth={4} className="group-hover/btn:translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Bottom Labels */}
-          <div className="mt-6 flex flex-wrap justify-center gap-6 opacity-30">
-            {['Fast Booking', 'No Hidden Fees', 'Top Rated Turfs'].map((text, i) => (
+          <div className="mt-6 flex flex-wrap justify-center gap-6 ">
+            {['Fast Booking', 'No Hidden Fees', 'Zero Phone Calls'].map((text, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div className="h-1 w-1 rounded-full bg-white" />
                 <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white">

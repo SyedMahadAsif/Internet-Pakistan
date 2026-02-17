@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar";
 import { venues, categories } from "../data/venues"; 
 import { useRouter } from "next/navigation";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaBolt } from "react-icons/fa";
 
 // Inside your SportsLanding component
@@ -23,6 +23,8 @@ export default function SportsLanding() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter();
+    const venuesRef = useRef(null); // <- ref for venues section
+
 
   const filteredVenues = (venues || []).filter((venue) => {
     const matchesQuery =
@@ -47,6 +49,14 @@ useEffect(() => {
   return () => clearInterval(interval); // cleanup on unmount
 }, []);
 
+
+  // scroll handler
+  const scrollToVenues = () => {
+    if (venuesRef.current) {
+      venuesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  
   return (
     <div className="min-h-screen bg-[#080415] text-white font-sans selection:bg-[#d9ff00] selection:text-black overflow-x-hidden">
       
@@ -90,7 +100,7 @@ useEffect(() => {
 
 
 
-         <h1 className="text-4xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-6 leading-[0.85]">
+         <h1 className="text-4xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter italic mb-0 md:mb-4 lg:mb-4 leading-[0.85]">
 
   <span className="block md:inline">INSTANTLY</span>{" "}
 
@@ -104,7 +114,7 @@ useEffect(() => {
 
 
 
-          <p className="text-slate-400 text-lg md:text-xl max-w-xl mb-6 leading-relaxed font-medium">
+          <p className="hidden lg:block md:block text-white text-lg md:text-xl max-w-xl  leading-relaxed font-medium">
 
             Discover and play at the best sports arenas in Karachi. Real-time availability, zero phone calls.
 
@@ -114,7 +124,11 @@ useEffect(() => {
 
           {/* Search Bar */}
 
-          <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+<SearchBar
+  searchQuery={searchQuery}
+  setSearchQuery={setSearchQuery}
+  onExploreClick={scrollToVenues} // ✅ new prop
+/>
 
         </div>
 
@@ -173,7 +187,7 @@ useEffect(() => {
           onClick={() => setSelectedCategory(isActive ? "" : cat.name)}
           className={`group relative flex-shrink-0 flex flex-col justify-between p-4 w-28 h-28 md:w-32 md:h-32 rounded-[24px] border transition-all duration-500 snap-start overflow-hidden
             ${isActive 
-              ? "bg-white border-white text-black shadow-[0_20px_40px_-15px_rgba(255,255,255,0.2)] scale-[1.02]" 
+              ? "bg-[#d9ff00]  border-white text-black shadow-[0_20px_40px_-15px_rgba(255,255,255,0.2)] scale-[1.02]" 
               : "bg-[#120c24] border-white/10 text-white hover:bg-[#1a162e] hover:border-white/20"
             }`}
         >
@@ -213,7 +227,7 @@ useEffect(() => {
 
 
       {/* ===== VENUES SECTION ===== */}
-      <section className="px-6 pb-32 mx-auto relative z-10 max-w-7xl">
+      <section ref={venuesRef} className="px-6 pb-32 mx-auto relative z-10 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredVenues.length > 0 ? (
             filteredVenues.map((venue) => (

@@ -2,13 +2,14 @@
 
 import { useState, useMemo } from "react";
 import { 
-  ChevronRight, MapPin, Activity, ChevronDown, User, Smartphone, Calendar, Clock, CheckCircle2 
+  ChevronRight, MapPin, Activity, ChevronDown, User, Smartphone, Calendar, Clock, CheckCircle2, Mail 
 } from "lucide-react";
 
 export default function VenueBookingPage({ venue }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const [formData, setFormData] = useState({ name: "", phone: "" });
+  // Added email to the formData state
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
   const [dateOpen, setDateOpen] = useState(false);
   const [timeOpen, setTimeOpen] = useState(false);
 
@@ -26,17 +27,20 @@ export default function VenueBookingPage({ venue }) {
   const handleFinalize = () => {
     const params = new URLSearchParams({
       name: formData.name,
+      email: formData.email, // Passing email to confirmation page
       venue: venue.name,
+      area: venue.area,
       date: selectedDate?.display || "",
       time: selectedTime,
-      phone: formData.phone
+      phone: formData.phone,
+      price: venue.price
     });
     
     window.location.href = `/confirmation?${params.toString()}`;
   };
 
   return (
-    <div className="min-h-screen  text-white p-4 md:p-12 font-sans">
+    <div className="min-h-screen text-white p-4 md:p-12 font-sans selection:bg-[#d9ff00] selection:text-black">
       {/* HEADER */}
       <div className="max-w-5xl mx-auto mb-6 md:mb-10 text-center md:text-left">
         <h1 className="text-3xl md:text-6xl font-black italic uppercase tracking-tighter mb-2">
@@ -52,10 +56,9 @@ export default function VenueBookingPage({ venue }) {
         {/* LEFT SIDE: VENUE INFO */}
         <div className="w-full md:w-5/12 p-6 md:p-8 bg-gradient-to-br from-[#1a1329] to-[#110c1d] border-b md:border-b-0 md:border-r border-white/10 flex flex-col">
           <div className="flex items-center gap-4 mb-6 md:mb-8">
-            
             <div>
               <p className="text-[10px] font-black text-[#d9ff00] uppercase tracking-widest leading-tight">Selected Venue</p>
-              <h2 className="text-lg md:text-xl font-bold uppercase leading-none">{venue.name}</h2>
+              <h2 className="text-lg md:text-xl font-bold uppercase leading-none mt-1">{venue.name}</h2>
             </div>
           </div>
 
@@ -73,8 +76,6 @@ export default function VenueBookingPage({ venue }) {
               </div>
             </div>
           </div>
-
-          
         </div>
 
         {/* RIGHT SIDE: THE FORM */}
@@ -142,17 +143,32 @@ export default function VenueBookingPage({ venue }) {
                 <div className="relative group">
                   <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#d9ff00] transition-colors" />
                   <input 
-                    className="w-full bg-[#1c1629] border border-white/10 text-white text-base font-medium h-14 pl-12 pr-4 rounded-xl outline-none focus:border-[#d9ff00]/50 focus:ring-1 focus:ring-[#d9ff00]/20 transition-all placeholder:text-white/20" 
+                    className="w-full bg-[#1c1629] border border-white/10 text-white text-sm font-medium h-14 pl-12 pr-4 rounded-xl outline-none focus:border-[#d9ff00]/50 focus:ring-1 focus:ring-[#d9ff00]/20 transition-all placeholder:text-white/20" 
                     placeholder="Enter Full Name" 
+                    value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})} 
                   />
                 </div>
+                
+                {/* NEW EMAIL FIELD */}
+                <div className="relative group">
+                  <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#d9ff00] transition-colors" />
+                  <input 
+                    type="email"
+                    className="w-full bg-[#1c1629] border border-white/10 text-white text-sm font-medium h-14 pl-12 pr-4 rounded-xl outline-none focus:border-[#d9ff00]/50 focus:ring-1 focus:ring-[#d9ff00]/20 transition-all placeholder:text-white/20" 
+                    placeholder="Email Address" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})} 
+                  />
+                </div>
+
                 <div className="relative group">
                   <Smartphone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#d9ff00] transition-colors" />
                   <input 
                     type="tel"
-                    className="w-full bg-[#1c1629] border border-white/10 text-white text-base font-medium h-14 pl-12 pr-4 rounded-xl outline-none focus:border-[#d9ff00]/50 focus:ring-1 focus:ring-[#d9ff00]/20 transition-all placeholder:text-white/20" 
+                    className="w-full bg-[#1c1629] border border-white/10 text-white text-sm font-medium h-14 pl-12 pr-4 rounded-xl outline-none focus:border-[#d9ff00]/50 focus:ring-1 focus:ring-[#d9ff00]/20 transition-all placeholder:text-white/20" 
                     placeholder="WhatsApp Number" 
+                    value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})} 
                   />
                 </div>
@@ -160,7 +176,7 @@ export default function VenueBookingPage({ venue }) {
             </section>
 
             <button
-              disabled={!selectedDate || !selectedTime || !formData.name || !formData.phone}
+              disabled={!selectedDate || !selectedTime || !formData.name || !formData.phone || !formData.email}
               onClick={handleFinalize}
               className="w-full bg-[#d9ff00] disabled:bg-white/5 disabled:text-white/20 disabled:cursor-not-allowed text-black h-16 rounded-xl font-black uppercase text-xs tracking-[0.2em] transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 shadow-[0_10px_40px_rgba(217,255,0,0.15)]"
             >
