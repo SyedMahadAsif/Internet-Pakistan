@@ -216,11 +216,11 @@ useEffect(() => {
                   </h3>
                   
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="flex items-center gap-2 text-white/30 text-[10px] font-black uppercase tracking-widest">
+                    <div className="flex items-center gap-2 text-white text-[10px] font-black uppercase tracking-widest">
                       <MapPin size={12} className="text-[#d9ff00]" />
                       {venue.area}
                     </div>
-                    <div className="flex items-center gap-2 text-white/30 text-[10px] font-black uppercase tracking-widest">
+                    <div className="flex items-center gap-2 text-white text-[10px] font-black uppercase tracking-widest">
                       <Clock size={12} className="text-[#d9ff00]" />
                       {venue.openTime}
                     </div>
@@ -228,7 +228,7 @@ useEffect(() => {
 
                   <div className="mt-auto flex items-center justify-between bg-white/5 p-4 rounded-[24px] border border-white/5">
                     <div>
-                      <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mb-1">Per Hour</p>
+                      <p className="text-[8px] font-black text-white uppercase tracking-[0.2em] mb-1">Per Hour</p>
                       <span className="text-2xl font-black text-[#d9ff00] italic">PKR {venue.price}</span>
                     </div>
                     <button

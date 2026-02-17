@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ChevronLeft, Share2, Heart, MapPin, Zap } from "lucide-react";
 import Header from "@/components/Header";
 import VenueInfo from "@/components/VenueInfo";
-import VenueHero from "@/components/VenueHero"; // This now handles the integrated carousel
+import VenueHero from "@/components/VenueHero"; 
 import VenueMap from "@/components/VenueMap";
 import { venues } from "@/data/venues";
 
@@ -30,101 +30,86 @@ export default function VenueDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#080415] text-white overflow-x-hidden pb-20">
+    <div className="min-h-screen bg-[#080415] text-white overflow-x-hidden pb-20 selection:bg-[#d9ff00] selection:text-black">
       <Header />
 
-      <main className="max-w-[1400px] mx-auto px-4 lg:px-6">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* ===== TOP NAVIGATION BAR ===== */}
         <div className="flex items-center justify-between py-6">
-          {/* <button
-            onClick={() => router.push("/")}
-            className="group flex items-center gap-3 text-white/40 hover:text-[#d9ff00] transition-all text-[10px] font-black uppercase tracking-[0.3em]"
-          >
-            <div className="bg-white/5 border border-white/10 p-2 rounded-xl group-hover:border-[#d9ff00]/50">
-              <ChevronLeft size={16} />
-            </div>
-            Back to Arenas
-          </button> */}
-
-          {/* <div className="flex items-center gap-3">
-             <button className="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors">
-                <Share2 size={18} />
-             </button>
-             <button className="p-3 bg-white/5 border border-white/10 rounded-xl hover:text-red-500 transition-colors">
-                <Heart size={18} />
-             </button>
-          </div> */}
+        
         </div>
 
-        {/* ===== INTEGRATED MEDIA STACK (Hero + Carousel + Thumbnails) ===== */}
-        {/* ===== INTEGRATED MEDIA STACK (Hero + Carousel + Thumbnails) ===== */}
-<div className="relative mb-10 group">
-  <div className="rounded-[40px] overflow-hidden border border-white/10 bg-[#120c24] shadow-2xl">
-    {/* VenueHero now acts as the master container for carousel */}
-    <VenueHero venue={venue} />
-  </div>
-
-  {/* Secure Spot Button + Quick Info */}
-  {/* <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center justify-between bg-[#1a162e]/90 backdrop-blur-2xl border border-white/10 p-6 rounded-[28px] shadow-2xl">
-    
-    <div className="flex items-center gap-6 mb-4 md:mb-0">
-      <div>
-        <h1 className="text-3xl font-black italic uppercase tracking-tighter text-white leading-none">
-          {venue.name}
-        </h1>
-        <p className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase mt-2">
-          <MapPin size={12} className="text-[#d9ff00]" /> {venue.area}, Karachi
-        </p>
-      </div>
-      <div className="h-10 w-px bg-white/10" />
-      <div>
-        <p className="text-[9px] font-black text-slate-500 uppercase mb-1">Price Starts At</p>
-        <p className="text-xl font-black text-[#d9ff00] italic">Rs. {venue.price}/hr</p>
-      </div>
-    </div>
-
-    <button className="bg-[#d9ff00] text-black px-8 py-4 rounded-2xl font-black uppercase text-xs flex items-center gap-2 hover:bg-white transition-all shadow-lg shadow-[#d9ff00]/10">
-      <Zap size={16} fill="black" /> Secure Spot
-    </button>
-  </div> */}
-</div>
-
-
-        {/* ===== TACTICAL DATA GRID ===== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-16 md:mt-20">
-          
-          {/* LEFT: Core Booking & Info (8 Cols) */}
-          <div className="lg:col-span-8 space-y-8">
-     <VenueInfo venue={venue} />
+        {/* ===== INTEGRATED MEDIA STACK ===== */}
+        <section className="relative mb-12">
+          <div className="rounded-[32px] md:rounded-[48px] overflow-hidden border border-white/10 bg-[#120c24] shadow-2xl">
+            <VenueHero venue={venue} />
           </div>
 
-          {/* RIGHT: Map & Location Context (4 Cols) */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-[#120c24] border border-white/10 rounded-[32px] p-2 overflow-hidden shadow-xl group">
-                <div className="p-4">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Arena Location</h3>
-                    <p className="text-sm font-bold italic">{venue.area}</p>
+          {/* Secure Spot Bar - Re-integrated with improved visibility */}
+          <div className="mt-8 flex flex-col md:flex-row items-center justify-between bg-[#1a162e]/80 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-[32px] shadow-2xl gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+              <div>
+                <h1 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none mb-2">
+                  {venue.name}
+                </h1>
+                <p className="flex items-center justify-center md:justify-start gap-2 text-slate-400 text-xs font-bold uppercase">
+                  <MapPin size={14} className="text-[#d9ff00]" /> {venue.area}, Karachi
+                </p>
+              </div>
+              <div className="hidden md:block h-12 w-px bg-white/10" />
+             
+            </div>
+
+             <div>
+                <p className="text-[10px] font-black text-slate-500 uppercase mb-1">Price Starts At</p>
+                <p className="text-2xl font-black text-[#d9ff00] italic">Rs. {venue.price}<span className="text-xs opacity-60 ml-1">/hr</span></p>
+              </div>
+          </div>
+        </section>
+
+        {/* ===== TACTICAL DATA GRID ===== */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-12">
+          
+          {/* LEFT: Core Booking & Info */}
+          <div className="lg:col-span-8 space-y-10">
+                <VenueInfo venue={venue} />
+          </div>
+
+          {/* RIGHT: Map & Location Context */}
+          <aside className="lg:col-span-4 space-y-6">
+            <div className="bg-[#120c24] border border-white/10 rounded-[32px] p-2 overflow-hidden shadow-xl">
+                <div className="p-5">
+                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Arena Location</h3>
+                    <p className="text-lg font-bold italic text-white uppercase">{venue.area}</p>
                 </div>
-                <div className="rounded-[24px] overflow-hidden  transition-all duration-700">
+                <div className="rounded-[24px] overflow-hidden aspect-square lg:aspect-auto lg:min-h-[350px] bg-white/5">
                     <VenueMap venue={venue} />
                 </div>
             </div>
             
             {/* Promo Card */}
-            <div className="bg-gradient-to-br from-[#d9ff00] to-[#b8d900] p-8 rounded-[32px] text-black">
-                <h4 className="font-black text-2xl italic uppercase leading-none mb-2">Member <br />Discount?</h4>
-                <p className="text-sm font-bold opacity-70 mb-4">Get 10% off on your first midnight slot booking.</p>
-                <div className="text-[10px] font-black uppercase tracking-widest border-b-2 border-black/20 inline-block">Learn More</div>
+            <div className="bg-gradient-to-br from-[#d9ff00] to-[#b8d900] p-8 rounded-[32px] text-black relative overflow-hidden group">
+                <div className="relative z-10">
+                  <h4 className="font-black text-2xl italic uppercase leading-tight mb-3">Member <br />Discount?</h4>
+                  <p className="text-sm font-bold opacity-80 mb-6 max-w-[200px]">Get 10% off on your first midnight slot booking.</p>
+                  <button className="text-[10px] font-black uppercase tracking-widest border-b-2 border-black/40 hover:border-black transition-all">
+                    Learn More
+                  </button>
+                </div>
+                {/* Decorative background icon */}
+                <Zap className="absolute -right-6 -bottom-6 w-32 h-32 opacity-10 -rotate-12 group-hover:rotate-0 transition-transform duration-500" />
             </div>
-          </div>
+          </aside>
 
         </div>
       </main>
 
-      {/* Background Branding */}
-      <div className="fixed -bottom-20 -left-20 pointer-events-none opacity-[0.02] select-none">
-        <h2 className="text-[25rem] font-black italic leading-none">{venue.sport}</h2>
+      {/* Background Branding - Fixed z-index so it doesn't block clicks */}
+      <div className="fixed -bottom-20 -left-20 pointer-events-none opacity-[0.03] select-none z-0">
+        <h2 className="text-[25rem] font-black italic leading-none uppercase tracking-tighter">
+          {venue.sport}
+        </h2>
       </div>
     </div>
   );
