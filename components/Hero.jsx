@@ -121,46 +121,48 @@ useEffect(() => {
       </section>
 
      {/* ===== CATEGORIES SECTION ===== */}
-<section className="px-4 mx-auto max-w-7xl relative z-10 select-none">
-  {/* HEADER */}
-  <div className="flex flex-col items-center mb-10 text-center">
-    <div className="flex items-center gap-3 mb-2">
-      <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#d9ff00]" />
-      <span className="text-[#d9ff00] text-[10px] font-bold tracking-[0.3em] uppercase">
-        Browse
+<section className="px-8 sm:px-6 mx-auto max-w-7xl relative z-10 select-none py-3">
+  {/* HEADER: Left Aligned */}
+  <div className="flex flex-col mb-4">
+    <div className="flex items-center gap-2">
+      <div className="h-[2px] w-6 bg-[#d9ff00]" />
+      <span className="text-[#d9ff00] text-[20px] font-black uppercase tracking-[0.3em]">
+        Categories
       </span>
-      <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#d9ff00]" />
     </div>
-
-    <h2 className="text-2xl md:text-4xl font-black italic tracking-tight text-white uppercase">
-      CHOOSE <span className="text-white/30">CATEGORY</span>
-    </h2>
   </div>
 
   {/* CATEGORY SCROLLER */}
-  <div className="flex items-center gap-4 overflow-x-auto pb-6 no-scrollbar -mx-4 px-4 snap-x snap-proximity">
-
-    {/* ALL BUTTON */}
+  <div className="flex items-center gap-3 overflow-x-auto pb-6 no-scrollbar -mx-4 px-4 snap-x snap-mandatory scroll-smooth">
+    
+    {/* "ALL" TILE */}
     <button
       onClick={() => setSelectedCategory("")}
-      className={`group relative flex-shrink-0 flex items-center justify-center px-8 h-12 rounded-full border transition-all duration-500 snap-center
+      className={`group relative flex-shrink-0 flex flex-col justify-between p-4 w-28 h-28 md:w-32 md:h-32 rounded-[24px] border transition-all duration-500 snap-start overflow-hidden
         ${selectedCategory === "" 
-          ? "bg-[#d9ff00] border-[#d9ff00] text-black shadow-[0_10px_25px_-5px_rgba(217,255,0,0.4)] scale-105" 
-          : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 backdrop-blur-md"
+          ? "bg-[#d9ff00] border-[#d9ff00] text-black shadow-[0_20px_40px_-15px_rgba(217,255,0,0.3)]" 
+          : "bg-[#120c24] border-white/10 text-white hover:border-[#d9ff00]/50"
         }`}
     >
-      <FaBolt
-        size={14}
-        className={`mr-2 transition-transform duration-300 group-hover:scale-110 ${
-          selectedCategory === "" ? "text-black" : "text-white/70"
-        }`}
-      />
-      <span className="text-xs font-black uppercase tracking-widest">
-        All
+      <div className="relative z-10">
+        <Zap 
+          size={24} 
+          className={selectedCategory === "" ? "fill-black text-black" : "text-[#d9ff00]"} 
+        />
+      </div>
+      <span className="relative z-10 text-[11px] font-black uppercase tracking-wider text-left leading-tight">
+        All<br/>Arenas
       </span>
+      
+      {/* Background Icon Watermark */}
+      <div className={`absolute -right-4 -bottom-4 transition-all duration-700 ${
+        selectedCategory === "" ? "opacity-20 scale-110 rotate-12" : "opacity-5 scale-100"
+      }`}>
+        <Zap size={100} className={selectedCategory === "" ? "fill-black" : "fill-white"} />
+      </div>
     </button>
 
-    {/* CATEGORY PILLS */}
+    {/* CATEGORY TILES */}
     {categories.map((cat) => {
       const isActive = selectedCategory === cat.name;
       const Icon = cat.icon;
@@ -169,37 +171,40 @@ useEffect(() => {
         <button
           key={cat.name}
           onClick={() => setSelectedCategory(isActive ? "" : cat.name)}
-          className={`group relative flex-shrink-0 flex items-center p-1.5 pr-6 h-12 rounded-full border transition-all duration-500 snap-center
+          className={`group relative flex-shrink-0 flex flex-col justify-between p-4 w-28 h-28 md:w-32 md:h-32 rounded-[24px] border transition-all duration-500 snap-start overflow-hidden
             ${isActive 
-              ? "bg-white/10 border-[#d9ff00] text-white shadow-[0_10px_20px_-10px_rgba(217,255,0,0.3)] scale-105" 
-              : "bg-white/5 border-white/10 text-white/40 hover:border-white/20 backdrop-blur-sm"
+              ? "bg-white border-white text-black shadow-[0_20px_40px_-15px_rgba(255,255,255,0.2)] scale-[1.02]" 
+              : "bg-[#120c24] border-white/10 text-white hover:bg-[#1a162e] hover:border-white/20"
             }`}
         >
-          {/* Circular Icon */}
-          <div
-            className={`flex items-center justify-center w-9 h-9 rounded-full border-2 transition-all duration-500
-              ${isActive 
-                ? "border-[#d9ff00] bg-[#d9ff00]/10 rotate-3" 
-                : "border-white/10 bg-white/5 group-hover:bg-white/10"
-              }`}
-          >
-            <Icon
-              size={18}
-              className={`transition-all duration-300
-                ${isActive 
-                  ? "text-[#d9ff00]" 
-                  : "text-white/60 group-hover:text-white"
-                }`}
-            />
+          {/* Top Row: Icon & Status */}
+          <div className="flex justify-between items-start relative z-10">
+            <div className={`p-2 rounded-xl transition-all duration-500 ${
+              isActive ? "bg-black text-white" : "bg-white/5 text-white/60 group-hover:bg-[#d9ff00] group-hover:text-black"
+            }`}>
+              <Icon size={20} />
+            </div>
+            {isActive && (
+              <div className="w-1.5 h-1.5 bg-black rounded-full animate-ping mt-2 mr-1" />
+            )}
           </div>
 
-          <span className="ml-3 text-xs font-bold uppercase tracking-widest whitespace-nowrap">
-            {cat.name}
-          </span>
+          {/* Bottom Row: Label */}
+          <div className="flex flex-col items-start text-left relative z-10">
+            <span className="text-[11px] font-black uppercase tracking-tight leading-none">
+              {cat.name}
+            </span>
+            <span className="text-[8px] font-bold uppercase mt-1 opacity-50">
+              {isActive ? "Selected" : "Browse"}
+            </span>
+          </div>
 
-          {isActive && (
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-[#d9ff00] blur-[1px]" />
-          )}
+          {/* Background Icon Watermark */}
+          <div className={`absolute -right-5 -bottom-5 transition-all duration-700 pointer-events-none ${
+            isActive ? "opacity-15 scale-110 -rotate-12" : "opacity-[0.03] scale-100 group-hover:opacity-10 group-hover:rotate-6"
+          }`}>
+            <Icon size={110} />
+          </div>
         </button>
       );
     })}
