@@ -6,6 +6,7 @@ import { venues, categories } from "../data/venues";
 import { useRouter } from "next/navigation";
 
 import React, { useState, useEffect } from "react";
+import { FaBolt } from "react-icons/fa";
 
 // Inside your SportsLanding component
 const backgroundImages = [
@@ -120,23 +121,26 @@ useEffect(() => {
       </section>
 
      {/* ===== CATEGORIES SECTION ===== */}
-<section className="px-4  mx-auto max-w-7xl relative z-10 select-none">
-  {/* HEADER SECTION - More minimalist & balanced */}
+<section className="px-4 mx-auto max-w-7xl relative z-10 select-none">
+  {/* HEADER */}
   <div className="flex flex-col items-center mb-10 text-center">
     <div className="flex items-center gap-3 mb-2">
       <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#d9ff00]" />
-      <span className="text-[#d9ff00] text-[10px] font-bold tracking-[0.3em] uppercase">Browse</span>
+      <span className="text-[#d9ff00] text-[10px] font-bold tracking-[0.3em] uppercase">
+        Browse
+      </span>
       <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#d9ff00]" />
     </div>
+
     <h2 className="text-2xl md:text-4xl font-black italic tracking-tight text-white uppercase">
       CHOOSE <span className="text-white/30">CATEGORY</span>
     </h2>
   </div>
 
-  {/* CATEGORY SCROLLER - Better mobile spacing & glass effect */}
+  {/* CATEGORY SCROLLER */}
   <div className="flex items-center gap-4 overflow-x-auto pb-6 no-scrollbar -mx-4 px-4 snap-x snap-proximity">
-    
-    {/* "All" Toggle Pill */}
+
+    {/* ALL BUTTON */}
     <button
       onClick={() => setSelectedCategory("")}
       className={`group relative flex-shrink-0 flex items-center justify-center px-8 h-12 rounded-full border transition-all duration-500 snap-center
@@ -145,17 +149,22 @@ useEffect(() => {
           : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 backdrop-blur-md"
         }`}
     >
-      <Zap 
-        size={16} 
-        className={`mr-2 transition-transform duration-300 group-hover:scale-110`} 
-        fill={selectedCategory === "" ? "black" : "transparent"} 
+      <FaBolt
+        size={14}
+        className={`mr-2 transition-transform duration-300 group-hover:scale-110 ${
+          selectedCategory === "" ? "text-black" : "text-white/70"
+        }`}
       />
-      <span className="text-xs font-black uppercase tracking-widest">All</span>
+      <span className="text-xs font-black uppercase tracking-widest">
+        All
+      </span>
     </button>
 
-    {/* Dynamic Category Pills */}
+    {/* CATEGORY PILLS */}
     {categories.map((cat) => {
       const isActive = selectedCategory === cat.name;
+      const Icon = cat.icon;
+
       return (
         <button
           key={cat.name}
@@ -166,21 +175,28 @@ useEffect(() => {
               : "bg-white/5 border-white/10 text-white/40 hover:border-white/20 backdrop-blur-sm"
             }`}
         >
-          {/* Circular Mini Image - Improved contrast and scaling */}
-          <div className={`relative w-9 h-9 rounded-full overflow-hidden border-2 transition-all duration-500 
-            ${isActive ? "border-[#d9ff00] rotate-3" : "border-white/5 grayscale opacity-50 group-hover:opacity-100 group-hover:grayscale-0"}`}>
-            <img 
-              src={cat.image} 
-              alt={cat.name} 
-              className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" 
+          {/* Circular Icon */}
+          <div
+            className={`flex items-center justify-center w-9 h-9 rounded-full border-2 transition-all duration-500
+              ${isActive 
+                ? "border-[#d9ff00] bg-[#d9ff00]/10 rotate-3" 
+                : "border-white/10 bg-white/5 group-hover:bg-white/10"
+              }`}
+          >
+            <Icon
+              size={18}
+              className={`transition-all duration-300
+                ${isActive 
+                  ? "text-[#d9ff00]" 
+                  : "text-white/60 group-hover:text-white"
+                }`}
             />
           </div>
-          
+
           <span className="ml-3 text-xs font-bold uppercase tracking-widest whitespace-nowrap">
             {cat.name}
           </span>
 
-          {/* Active indicator - Subtle glowing line instead of dot */}
           {isActive && (
             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-[#d9ff00] blur-[1px]" />
           )}
@@ -189,6 +205,7 @@ useEffect(() => {
     })}
   </div>
 </section>
+
 
       {/* ===== VENUES SECTION ===== */}
       <section className="px-6 pb-32 mx-auto relative z-10 max-w-7xl">

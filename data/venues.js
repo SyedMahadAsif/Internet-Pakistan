@@ -1,13 +1,18 @@
 // data/venues.js
 
+import { FaFutbol, FaDumbbell, FaSwimmer } from "react-icons/fa";
+import { GiTennisRacket, GiShuttlecock } from "react-icons/gi";
+import { MdOutlineSportsTennis, MdSportsCricket } from "react-icons/md";
+import { TbRacket } from "react-icons/tb";
+
 export const categories = [
-  { name: "Padel", image: "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62?auto=format&fit=crop&w=200&q=80" },
-  { name: "Cricket", image: "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62?auto=format&fit=crop&w=200&q=80" },
-  { name: "Football",     image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1600&q=80", },
-  { name: "Tennis", image: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=200&q=80" },
-  { name: "Badminton", image: "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62?auto=format&fit=crop&w=200&q=80"  },
-  { name: "Gym", image: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=200&q=80" },
-  { name: "Swimming", image: "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62?auto=format&fit=crop&w=200&q=80"  },
+  { name: "Padel", icon: MdOutlineSportsTennis  },
+  { name: "Cricket", icon: MdSportsCricket },
+  { name: "Football", icon: FaFutbol },
+  { name: "Tennis", icon: GiTennisRacket },
+  { name: "Badminton", icon: GiShuttlecock },
+  { name: "Gym", icon: FaDumbbell },
+  { name: "Swimming", icon: FaSwimmer },
 ];
 
 export const venues = [
